@@ -86,8 +86,6 @@ function setAlarm() {
     }, 1000)
 
     stopAlarmBtn.addEventListener('click', () => {
-      alarmSound.pause()
-      alarmSound.currentTime = 0
       passwordForm.classList.remove('hidden')
     })
 
@@ -96,6 +94,8 @@ function setAlarm() {
       .addEventListener('click', () => {
         const passwordInput = document.getElementById('password').value
         if (passwordInput === '1234') {
+          alarmSound.pause()
+          alarmSound.currentTime = 0
           alarmModal.classList.add('hidden')
           resetAlarmBtn.classList.remove('hidden')
           passwordForm.classList.add('hidden')
