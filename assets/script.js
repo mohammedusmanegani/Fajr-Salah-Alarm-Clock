@@ -17,10 +17,15 @@ function setAlarm() {
   const alarmTime = document.getElementById('alarm-time').value
   const timeLeftElement = document.getElementById('time-left')
   const alarmModal = document.getElementById('alarm-modal')
+  const resetModal = document.getElementById('reset-modal')
   const alarmSound = document.getElementById('alarm-sound')
   const stopAlarmBtn = document.getElementById('stop-alarm-btn')
   const resetAlarmBtn = document.getElementById('reset-alarm-btn')
+  const setAlarmBtn = document.getElementById('set-alarm-btn')
   const passwordForm = document.getElementById('password-form')
+
+  setAlarmBtn.classList.add('hidden')
+  resetAlarmBtn.classList.remove('hidden')
 
   const now = new Date()
   const selectedTime = new Date(now.toDateString() + ' ' + alarmTime)
@@ -40,7 +45,7 @@ function setAlarm() {
   const minutesLeft = Math.floor((timeLeftMs % (1000 * 60 * 60)) / (1000 * 60))
   const secondsLeft = Math.floor((timeLeftMs % (1000 * 60)) / 1000)
 
-  const timeLeftText = 'Time left: '
+  const timeLeftText = 'Time left for Fajr Salah: '
 
   const timeLeftString =
     daysLeft.toString().padStart(2, '0') +
@@ -99,16 +104,42 @@ function setAlarm() {
         alarmModal.classList.add('hidden')
         resetAlarmBtn.classList.remove('hidden')
         passwordForm.classList.add('hidden')
+        resetAlarm()
       } else {
         alert('Incorrect Password. Alarm is still ringing!')
       }
     })
 
-  document.getElementById('reset-alarm-btn').addEventListener('click', () => {
+  function resetAlarm() {
+    clearInterval(countdown)
+    setAlarmBtn.classList.remove('hidden')
     resetAlarmBtn.classList.add('hidden')
     document.getElementById('alarm-time').value = ''
     timeLeftElement.textContent = ''
-  })
+  }
+
+  function resetAuthentication() {
+    const resetInput = document.getElementById('reset-password').value
+    resetModal.classList.remove('hidden')
+    if (resetInput === '12') {
+      resetModal.classList.add('hidden')
+      resetAlarm()
+    } else {
+      alert('Wrong Password')
+    }
+  }
+
+  document
+    .getElementById('reset-password-btn')
+    .addEventListener('click', resetAuthentication)
+
+  document
+    .getElementById('reset-alarm-btn')
+    .addEventListener('click', () => resetModal.classList.remove('hidden'))
+
+  document
+    .getElementById('reset-modal-close-btn')
+    .addEventListener('click', () => resetModal.classList.add('hidden'))
 }
 
 // Initialize the alarm clock

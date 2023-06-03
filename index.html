@@ -15,7 +15,7 @@
         <h1 class="text-3xl text-center mb-8 font-bold">Fajr Salah Alarm Clock</h1>
 
         <div class="flex justify-center mb-4">
-            <div id="current-time" class="text-2xl font-bold"></div>
+            <div id="current-time" class="text-2xl font-bold">00:00:00 AM/PM</div>
         </div>
 
         <div class="flex justify-center mb-4">
@@ -47,6 +47,26 @@
                 </div>
             </div>
         </div>
+
+        <div id="reset-modal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 hidden">
+            <div class="bg-gray-900 text-white p-8 rounded-lg text-center dark:bg-gray-800 dark:text-gray-100 relative">
+                <button id="reset-modal-close-btn"
+                    class="absolute top-2 right-2 text-white hover:text-gray-300 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <h2 class="text-2xl mb-2">Authentication Required</h2>
+                <h2 class="text-1xl mb-4 font-bold">Please Enter Password to Reset Alarm for Fajr Salah</h2>
+                <div id="reset-password-form" class="flex justify-center mt-4">
+                    <input type="password" id="reset-password" class="text-1xl p-1 rounded-lg" placeholder="Password">
+                </div>
+                <button id="reset-password-btn" class="mt-4 px-4 py-2 bg-red-500 rounded-lg">Submit</button>
+            </div>
+        </div>
+
     </div>
 
     <script src="assets/script.js"></script>
