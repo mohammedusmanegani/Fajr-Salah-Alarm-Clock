@@ -42,6 +42,8 @@ function setAlarm() {
     )
     const secondsLeft = Math.floor((timeLeftMs % (1000 * 60)) / 1000)
 
+    const timeLeftText = 'Time left for Fajr Salah: '
+
     const timeLeftString =
       daysLeft.toString().padStart(2, '0') +
       'd:' +
@@ -51,7 +53,7 @@ function setAlarm() {
       'm:' +
       secondsLeft.toString().padStart(2, '0') +
       's'
-    timeLeftElement.textContent = 'Time left: ' + timeLeftString
+    timeLeftElement.textContent = timeLeftText + timeLeftString
 
     const countdown = setInterval(() => {
       const currentTimeMs = new Date().getTime()
@@ -81,7 +83,7 @@ function setAlarm() {
           'm:' +
           secondsLeft.toString().padStart(2, '0') +
           's'
-        timeLeftElement.textContent = 'Time left: ' + timeLeftString
+        timeLeftElement.textContent = timeLeftText + timeLeftString
       }
     }, 1000)
 
@@ -100,7 +102,7 @@ function setAlarm() {
           resetAlarmBtn.classList.remove('hidden')
           passwordForm.classList.add('hidden')
         } else {
-          alert('Incorrect password. Alarm is still ringing!')
+          alert('Incorrect Password. Alarm is still ringing!')
         }
       })
 
