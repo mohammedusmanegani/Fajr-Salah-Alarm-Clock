@@ -1,3 +1,33 @@
+document.addEventListener('keydown', function (event) {
+  // Disable keyboard input for specific Ctrl keys
+  if (event.ctrlKey) {
+    event.preventDefault()
+  }
+})
+
+function toggleFullScreen() {
+  if (
+    !document.fullscreenElement && // alternative standard method
+    !document.mozFullScreenElement &&
+    !document.webkitFullscreenElement &&
+    !document.msFullscreenElement
+  ) {
+    // current working methods
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen()
+    } else if (document.documentElement.mozRequestFullScreen) {
+      // Firefox
+      document.documentElement.mozRequestFullScreen()
+    } else if (document.documentElement.webkitRequestFullscreen) {
+      // Chrome, Safari, and Opera
+      document.documentElement.webkitRequestFullscreen()
+    } else if (document.documentElement.msRequestFullscreen) {
+      // IE/Edge
+      document.documentElement.msRequestFullscreen()
+    }
+  }
+}
+
 // Get current time and update every second
 function getCurrentTime() {
   const currentTimeElement = document.getElementById('current-time')
@@ -14,6 +44,7 @@ function getCurrentTime() {
 
 // Set alarm and start countdown
 function setAlarm() {
+  toggleFullScreen()
   const alarmTime = document.getElementById('alarm-time').value
   const timeLeftElement = document.getElementById('time-left')
   const alarmModal = document.getElementById('alarm-modal')
@@ -67,6 +98,7 @@ function setAlarm() {
       timeLeftElement.textContent = ''
       alarmModal.classList.remove('hidden')
       alarmSound.play()
+      resetInputFields()
     } else {
       const daysLeft = Math.floor(timeLeftMs / (1000 * 60 * 60 * 24))
       const hoursLeft = Math.floor(
@@ -129,13 +161,21 @@ function setAlarm() {
     }
   }
 
+  function resetInputFields() {
+    const inputFields = document.querySelectorAll('input')
+    inputFields.forEach((input) => {
+      input.value = ''
+    })
+  }
+
   document
     .getElementById('reset-password-btn')
     .addEventListener('click', resetAuthentication)
 
-  document
-    .getElementById('reset-alarm-btn')
-    .addEventListener('click', () => resetModal.classList.remove('hidden'))
+  document.getElementById('reset-alarm-btn').addEventListener('click', () => {
+    resetInputFields()
+    resetModal.classList.remove('hidden')
+  })
 
   document
     .getElementById('reset-modal-close-btn')
